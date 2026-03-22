@@ -4,6 +4,6 @@ using namespace std;
 
 int main() {
     int ancho, alto;
-    std::cin >> ancho >> alto;
+    cin >> ancho >> alto;
     return 0;
 }
