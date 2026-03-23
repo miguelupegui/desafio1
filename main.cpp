@@ -8,11 +8,16 @@ int main() {
 
     Tablero t;
 
-    cout << "Ancho: ";
+    cout << "Ancho (multiplo de 8): ";
     cin >> t.ancho;
 
-    cout << "Alto: ";
+    cout << "Alto (>=8): ";
     cin >> t.alto;
+
+    if (t.ancho < 8 || t.alto < 8 || t.ancho % 8 != 0) {
+        cout << "Dimensiones invalidas\n";
+        return 0;
+    }
 
     iniciarTablero(t);
 
@@ -24,6 +29,8 @@ int main() {
 
         char op;
         cin >> op;
+
+        if (op == 'q') break;
 
         if (op == 'a') {
             if (!colision(t, actual, actual.x - 1, actual.y))
@@ -40,7 +47,14 @@ int main() {
                 actual.y++;
             } else {
                 fijarPieza(t, actual);
+                limpiarFilas(t);
+
                 actual = nuevaPieza(t.ancho);
+
+                if (colision(t, actual, actual.x, actual.y)) {
+                    cout << "GAME OVER\n";
+                    break;
+                }
             }
         }
 

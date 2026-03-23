@@ -4,7 +4,6 @@
 using namespace std;
 
 void iniciarTablero(Tablero &t) {
-
     t.bytesPorFila = t.ancho / 8;
 
     t.matriz = new unsigned char*[t.alto];
@@ -19,7 +18,6 @@ void iniciarTablero(Tablero &t) {
 }
 
 void imprimir(Tablero &t, Pieza &p) {
-
     for (int i = 0; i < t.alto; i++) {
         for (int j = 0; j < t.ancho; j++) {
 
@@ -46,11 +44,10 @@ void imprimir(Tablero &t, Pieza &p) {
         cout << endl;
     }
 
-    cout << "A Izq | D Der | S Baja | W Rota\n";
+    cout << "A Izq | D Der | S Baja | W Rota | Q Salir\n";
 }
 
 bool colision(Tablero &t, Pieza &p, int nx, int ny) {
-
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
 
@@ -73,12 +70,10 @@ bool colision(Tablero &t, Pieza &p, int nx, int ny) {
             }
         }
     }
-
     return false;
 }
 
 void fijarPieza(Tablero &t, Pieza &p) {
-
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
 
@@ -92,6 +87,32 @@ void fijarPieza(Tablero &t, Pieza &p) {
                 int bit = x % 8;
 
                 t.matriz[y][byte] |= (1 << bit);
+            }
+        }
+    }
+}
+
+void limpiarFilas(Tablero &t) {
+    for (int i = 0; i < t.alto; i++) {
+
+        bool llena = true;
+
+        for (int j = 0; j < t.bytesPorFila; j++) {
+            if (t.matriz[i][j] != 0xFF) {
+                llena = false;
+                break;
+            }
+        }
+
+        if (llena) {
+            for (int k = i; k > 0; k--) {
+                for (int j = 0; j < t.bytesPorFila; j++) {
+                    t.matriz[k][j] = t.matriz[k-1][j];
+                }
+            }
+
+            for (int j = 0; j < t.bytesPorFila; j++) {
+                t.matriz[0][j] = 0;
             }
         }
     }
