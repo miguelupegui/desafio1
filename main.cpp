@@ -18,7 +18,41 @@ int main() {
 
     Pieza actual = nuevaPieza(t.ancho);
 
-    imprimir(t, actual);
+    while (true) {
+
+        imprimir(t, actual);
+
+        char op;
+        cin >> op;
+
+        if (op == 'a') {
+            if (!colision(t, actual, actual.x - 1, actual.y))
+                actual.x--;
+        }
+
+        if (op == 'd') {
+            if (!colision(t, actual, actual.x + 1, actual.y))
+                actual.x++;
+        }
+
+        if (op == 's') {
+            if (!colision(t, actual, actual.x, actual.y + 1)) {
+                actual.y++;
+            } else {
+                fijarPieza(t, actual);
+                actual = nuevaPieza(t.ancho);
+            }
+        }
+
+        if (op == 'w') {
+            Pieza temp = actual;
+            rotar(temp);
+
+            if (!colision(t, temp, temp.x, temp.y)) {
+                actual = temp;
+            }
+        }
+    }
 
     return 0;
 }

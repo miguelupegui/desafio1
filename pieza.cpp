@@ -25,3 +25,20 @@ Pieza nuevaPieza(int ancho) {
 
     return p;
 }
+
+void rotar(Pieza &p) {
+
+    int temp[4] = {0,0,0,0};
+
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (p.forma[i] & (1 << j)) {
+                temp[j] |= (1 << (3 - i));
+            }
+        }
+    }
+
+    for (int i = 0; i < 4; i++) {
+        p.forma[i] = temp[i];
+    }
+}

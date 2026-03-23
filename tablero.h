@@ -12,5 +12,7 @@ struct Tablero {
 
 void iniciarTablero(Tablero &t);
 void imprimir(Tablero &t, Pieza &p);
+bool colision(Tablero &t, Pieza &p, int nx, int ny);
+void fijarPieza(Tablero &t, Pieza &p);
 
 #endif

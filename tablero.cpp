@@ -45,4 +45,54 @@ void imprimir(Tablero &t, Pieza &p) {
         }
         cout << endl;
     }
+
+    cout << "A Izq | D Der | S Baja | W Rota\n";
+}
+
+bool colision(Tablero &t, Pieza &p, int nx, int ny) {
+
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+
+            if (!(p.forma[i] & (1 << j))) continue;
+
+            int x = nx + j;
+            int y = ny + i;
+
+            if (x < 0 || x >= t.ancho || y >= t.alto) {
+                return true;
+            }
+
+            if (y >= 0) {
+                int byte = x / 8;
+                int bit = x % 8;
+
+                if (t.matriz[y][byte] & (1 << bit)) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+void fijarPieza(Tablero &t, Pieza &p) {
+
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+
+            if (!(p.forma[i] & (1 << j))) continue;
+
+            int x = p.x + j;
+            int y = p.y + i;
+
+            if (y >= 0) {
+                int byte = x / 8;
+                int bit = x % 8;
+
+                t.matriz[y][byte] |= (1 << bit);
+            }
+        }
+    }
 }

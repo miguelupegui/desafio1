@@ -8,5 +8,6 @@ struct Pieza {
 };
 
 Pieza nuevaPieza(int ancho);
+void rotar(Pieza &p);
 
 #endif
